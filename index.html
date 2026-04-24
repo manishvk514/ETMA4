@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everything Media - AI film studio, built by filmmakers</title>
+    <meta name="description" content="Everything Media is an AI film studio built by filmmakers. Tools change. Taste doesn't.">
+    <meta name="theme-color" content="#050507">
+
+    <meta property="og:title" content="Everything Media">
+    <meta property="og:description" content="An AI film studio built by filmmakers.">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23050507'/%3E%3Ccircle cx='50' cy='50' r='32' fill='none' stroke='%23C56B4F' stroke-width='6'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%23F5F0E8'/%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300..900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">skip to content</a>
+
+    <div id="preloader" class="preloader" aria-hidden="true">
+        <div class="preloader-shell">
+            <div class="preloader-mark">
+                <span class="preloader-ring"></span>
+                <span class="preloader-copy">everything media</span>
+            </div>
+            <div class="preloader-frame">
+                <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="preloader-meta">
+                <span>calibrating frame</span>
+                <span id="loader-count">000</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="ambient" aria-hidden="true">
+        <canvas id="particle-canvas"></canvas>
+        <div class="ambient-orb ambient-orb-a"></div>
+        <div class="ambient-orb ambient-orb-b"></div>
+        <div class="ambient-grid"></div>
+    </div>
+
+    <div class="grain" aria-hidden="true"></div>
+    <div class="cursor" id="cursor" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="scroll-rail" aria-hidden="true">
+        <div class="scroll-progress" id="scroll-progress"></div>
+    </div>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a href="#top" class="nav-brand" aria-label="Everything Media home">
+            <span class="brand-glyph"></span>
+            <span>everything media</span>
+        </a>
+        <div class="nav-center">
+            <span class="nav-scene" id="nav-scene">scn 01</span>
+            <span class="nav-time" id="nav-time">00:00:00</span>
+        </div>
+        <div class="nav-links" aria-label="Page sections">
+            <a href="#work">work</a>
+            <a href="#method">method</a>
+            <a href="#contact" class="nav-link-cta">start a project</a>
+        </div>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+            <span></span><span></span>
+        </button>
+    </nav>
+
+    <aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <button class="mobile-close" id="mobile-close" type="button" aria-label="Close menu">close</button>
+        <a href="#work" class="mobile-link">work</a>
+        <a href="#capabilities" class="mobile-link">capabilities</a>
+        <a href="#method" class="mobile-link">method</a>
+        <a href="#contact" class="mobile-link">start a project</a>
+        <div class="mobile-footer">
+            <span>hello@everythingmedia.co.in</span>
+        </div>
+    </aside>
+
+    <main id="main">
+        <section id="top" class="section hero" data-scene="01">
+            <div class="hero-backplate" aria-hidden="true">
+                <div class="hero-stills" id="hero-stills">
+                    <div class="hero-still active" data-meta="35mm / f1.8 / take 01" style="background-image:url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=92&w=2600');"></div>
+                    <div class="hero-still" data-meta="50mm / f2.0 / take 02" style="background-image:url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=92&w=2600');"></div>
+                    <div class="hero-still" data-meta="85mm / f2.8 / take 03" style="background-image:url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=92&w=2600');"></div>
+                    <div class="hero-still" data-meta="24mm / f2.0 / take 04" style="background-image:url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=92&w=2600');"></div>
+                </div>
+                <div class="hero-mask"></div>
+                <div class="filmstrip filmstrip-a">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="filmstrip filmstrip-b">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+
+            <div class="hero-3d" id="hero-3d" aria-hidden="true">
+                <div class="lens-object" data-depth="0.18">
+                    <div class="lens-glow"></div>
+                    <div class="lens-ring ring-1"></div>
+                    <div class="lens-ring ring-2"></div>
+                    <div class="lens-ring ring-3"></div>
+                    <div class="lens-core"></div>
+                    <div class="lens-slice slice-1"></div>
+                    <div class="lens-slice slice-2"></div>
+                </div>
+                <div class="glass-plate plate-1" data-depth="0.32">
+                    <span>prompt</span>
+                    <strong>taste check</strong>
+                </div>
+                <div class="glass-plate plate-2" data-depth="0.48">
+                    <span>frame</span>
+                    <strong>locked</strong>
+                </div>
+                <div class="axis-rig" data-depth="0.26">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <p class="eyebrow reveal-up">AI film studio / directors, artists, engineers</p>
+                <h1 class="hero-title" aria-label="Everything Media">
+                    <span class="title-line"><span>Everything</span></span>
+                    <span class="title-line title-line-em"><span>Media</span></span>
+                </h1>
+                <p class="hero-copy reveal-up reveal-delay-1">
+                    We use AI to make moving images with the judgement of a film crew, the speed of a modern studio, and the taste to know when a frame is finally right.
+                </p>
+                <div class="hero-actions reveal-up reveal-delay-2">
+                    <a href="#contact" class="button button-primary" data-magnetic>start a project</a>
+                    <a href="#work" class="button button-ghost" data-magnetic>see the reel</a>
+                </div>
+            </div>
+
+            <div class="hero-lower">
+                <div class="hero-tagline">
+                    <span></span>
+                    <p>tools change. taste doesn't.</p>
+                    <span></span>
+                </div>
+                <div class="hero-meta-row">
+                    <span>scn 01 / entry</span>
+                    <span id="hero-meta">35mm / f1.8 / take 01</span>
+                    <span>scroll to cut</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="positioning" class="section positioning" data-scene="02">
+            <div class="section-kicker" data-reveal>scn 02 / position</div>
+            <div class="positioning-layout">
+                <h2 class="display-quote" data-reveal>
+                    The tool can make frames.<br>
+                    <em>Taste decides which frames matter.</em>
+                </h2>
+                <div class="positioning-copy" data-reveal>
+                    <p>Everything Media is built for brands, artists, and founders who want AI work that still feels directed by a human being.</p>
+                    <p>We begin with feeling, then build the world: lens, light, palette, texture, pace, sound, and the tiny choices that make a film feel expensive before anyone knows why.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="capabilities" class="section capabilities" data-scene="03">
+            <div class="section-topline">
+                <div>
+                    <span class="section-kicker" data-reveal>scn 03 / capabilities</span>
+                    <h2 class="section-title" data-reveal>What we make.</h2>
+                </div>
+                <p data-reveal>Premium AI moving image systems for films, campaigns, characters, and launch worlds.</p>
+            </div>
+
+            <div class="bento-grid">
+                <article class="bento-card bento-large" data-tilt data-reveal>
+                    <div class="card-chrome"></div>
+                    <div class="card-3d card-3d-orb" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <span class="card-num">01</span>
+                    <h3>Brand films with a point of view.</h3>
+                    <p>Launch films, manifesto films, social cuts, product worlds, and campaign assets that feel authored rather than assembled.</p>
+                </article>
+                <article class="bento-card" data-tilt data-reveal>
+                    <div class="card-3d card-3d-cube" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <span class="card-num">02</span>
+                    <h3>AI character systems.</h3>
+                    <p>Character design, expression boards, motion tests, and continuity systems for repeatable storytelling.</p>
+                </article>
+                <article class="bento-card" data-tilt data-reveal>
+                    <div class="card-3d card-3d-frame" aria-hidden="true"><span></span><span></span></div>
+                    <span class="card-num">03</span>
+                    <h3>Motion language.</h3>
+                    <p>Transitions, title systems, kinetic typography, visual rhythm, and editorial pacing.</p>
+                </article>
+                <article class="bento-card bento-wide" data-tilt data-reveal>
+                    <div class="card-chrome"></div>
+                    <div class="mini-timeline" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+                    <span class="card-num">04</span>
+                    <h3>Worldbuilding before production.</h3>
+                    <p>Lookbooks, visual bibles, prompt architecture, shot grammar, style consistency, and production-ready references.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="work" class="section work reel-scroll" data-scene="04" data-reel>
+            <div class="reel-sticky">
+                <div class="reel-head">
+                    <div>
+                        <span class="section-kicker" data-reveal>scn 04 / work</span>
+                        <h2 class="section-title" data-reveal>The reel should feel like a room getting darker.</h2>
+                    </div>
+                    <p data-reveal>Selected directions based on the current placeholders. Replace these stills with final campaign frames when ready.</p>
+                </div>
+
+                <div class="reel-viewport">
+                    <div class="reel-track" id="reel-track">
+                        <a href="#contact" class="work-card work-card-large" data-tilt data-cursor-text="case">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=92&w=2200" alt="Cinematic still for JioStar case study">
+                            </figure>
+                            <div class="work-card-copy">
+                                <span>01 / brand world</span>
+                                <h3>JioStar</h3>
+                                <p>Nine channels. One family. A system for scale, memory, and one emotional signature.</p>
+                            </div>
+                        </a>
+
+                        <a href="#contact" class="work-card" data-tilt data-cursor-text="case">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=92&w=1700" alt="Cinematic still for Hero Vida case study">
+                            </figure>
+                            <div class="work-card-copy">
+                                <span>02 / electric motion</span>
+                                <h3>Hero Vida</h3>
+                                <p>Electric momentum for places a crane cannot go.</p>
+                            </div>
+                        </a>
+
+                        <a href="#contact" class="work-card" data-tilt data-cursor-text="case">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1611348586840-ea9872d33411?auto=format&fit=crop&q=92&w=1700" alt="Cinematic still for Krishna case study">
+                            </figure>
+                            <div class="work-card-copy">
+                                <span>03 / mythic frames</span>
+                                <h3>Krishna</h3>
+                                <p>The first frames of a new myth, built for consistency and wonder.</p>
+                            </div>
+                        </a>
+
+                        <a href="#contact" class="work-card work-card-tall" data-tilt data-cursor-text="case">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1574267432644-f410f8ec2d4b?auto=format&fit=crop&q=92&w=1700" alt="Cinematic still for Surili Didi character system">
+                            </figure>
+                            <div class="work-card-copy">
+                                <span>04 / character system</span>
+                                <h3>Surili Didi</h3>
+                                <p>A character engineered to feel warm, repeatable, and alive.</p>
+                            </div>
+                        </a>
+
+                        <a href="#contact" class="work-card work-card-wide" data-tilt data-cursor-text="case">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=92&w=2100" alt="Cinematic still for experimental film direction">
+                            </figure>
+                            <div class="work-card-copy">
+                                <span>05 / original tests</span>
+                                <h3>Untitled</h3>
+                                <p>The films we make when nobody is asking. Proof of taste, not proof of software.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="method" class="section method" data-scene="05">
+            <div class="section-topline">
+                <div>
+                    <span class="section-kicker" data-reveal>scn 05 / method</span>
+                    <h2 class="section-title" data-reveal>How we direct the machine.</h2>
+                </div>
+                <p data-reveal>AI is not the director. It is the camera, the crew, the set, and the first draft. Direction is still the work.</p>
+            </div>
+
+            <div class="method-grid">
+                <article class="method-card" data-reveal>
+                    <span>01</span>
+                    <h3>Feeling first.</h3>
+                    <p>Before references or prompts, we define the emotional aftertaste. What should the viewer carry with them after the cut?</p>
+                </article>
+                <article class="method-card" data-reveal>
+                    <span>02</span>
+                    <h3>World bible.</h3>
+                    <p>Palette, lens, lighting logic, texture, wardrobe, surfaces, camera behaviour, and the rules the world cannot break.</p>
+                </article>
+                <article class="method-card" data-reveal>
+                    <span>03</span>
+                    <h3>Shot authorship.</h3>
+                    <p>Every frame is composed, rejected, reworked, and finished like a shot on set. Nothing is accepted because it merely looks generated.</p>
+                </article>
+                <article class="method-card" data-reveal>
+                    <span>04</span>
+                    <h3>Motion direction.</h3>
+                    <p>Pace, pause, velocity, weight, focus, transition, silence. Motion is how an image becomes memory.</p>
+                </article>
+                <article class="method-card" data-reveal>
+                    <span>05</span>
+                    <h3>Finish like film.</h3>
+                    <p>Color, typography, sound direction, grading notes, cleanup, and final delivery. Done is when the work stops asking for changes.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="lab" class="section lab" data-scene="06">
+            <div class="lab-copy">
+                <span class="section-kicker" data-reveal>scn 06 / visual system</span>
+                <h2 class="section-title" data-reveal>Premium is not polish. It is restraint.</h2>
+                <p data-reveal>We keep the interface cinematic: black space, copper accents, glass depth, slow parallax, hard cuts, lens metadata, and motion that behaves like a camera, not a website template.</p>
+                <a href="#contact" class="text-link" data-reveal data-magnetic>build the visual world</a>
+            </div>
+            <div class="lab-stage" data-reveal aria-hidden="true">
+                <div class="lab-frame frame-a"></div>
+                <div class="lab-frame frame-b"></div>
+                <div class="lab-frame frame-c"></div>
+                <div class="lab-core"></div>
+                <div class="lab-orbit orbit-a"></div>
+                <div class="lab-orbit orbit-b"></div>
+                <div class="lab-readout">
+                    <span>exposure + taste</span>
+                    <strong>locked</strong>
+                </div>
+            </div>
+        </section>
+
+        <section id="conviction" class="section conviction" data-scene="07">
+            <div class="conviction-inner" data-reveal>
+                <p class="eyebrow">the bar</p>
+                <h2>The best work feels like someone <em>couldn't stop thinking about it.</em></h2>
+                <p>Work you would watch twice. Work that looks inevitable after it exists.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="section contact" data-scene="08">
+            <div class="contact-grid">
+                <div class="contact-copy">
+                    <span class="section-kicker" data-reveal>scn 08 / contact</span>
+                    <h2 class="section-title" data-reveal>Let's make something that feels expensive before the logo appears.</h2>
+                    <p data-reveal>Send the brief, the feeling, the deadline, and what you want people to remember.</p>
+                    <div class="direct" data-reveal>
+                        <span>write directly</span>
+                        <a href="mailto:hello@everythingmedia.co.in">hello@everythingmedia.co.in</a>
+                    </div>
+                </div>
+
+                <form id="contact-form" class="contact-form" novalidate data-reveal>
+                    <div class="form-field">
+                        <input id="f-name" name="name" type="text" autocomplete="name" required placeholder=" ">
+                        <label for="f-name">your name</label>
+                    </div>
+                    <div class="form-field">
+                        <input id="f-company" name="company" type="text" autocomplete="organization" placeholder=" ">
+                        <label for="f-company">company or project</label>
+                    </div>
+                    <div class="form-field">
+                        <input id="f-email" name="email" type="email" autocomplete="email" required placeholder=" ">
+                        <label for="f-email">email</label>
+                    </div>
+                    <div class="form-field">
+                        <select id="f-type" name="type" required>
+                            <option value="" disabled selected></option>
+                            <option value="brand-film">brand film</option>
+                            <option value="campaign">campaign visual system</option>
+                            <option value="character">AI character system</option>
+                            <option value="motion">motion / title design</option>
+                            <option value="music-video">music video</option>
+                            <option value="other">something else</option>
+                        </select>
+                        <label for="f-type">type of work</label>
+                    </div>
+                    <div class="form-field form-field-full">
+                        <textarea id="f-message" name="message" rows="5" required placeholder=" "></textarea>
+                        <label for="f-message">what are you making, and what should it feel like?</label>
+                    </div>
+                    <div class="form-actions">
+                        <button class="button button-primary submit-btn" type="submit" data-magnetic>send the brief</button>
+                        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-brand">
+            <span class="brand-glyph"></span>
+            <span>everything media</span>
+        </div>
+        <p>AI film studio. Built by filmmakers. Tools change. Taste doesn't.</p>
+        <span class="footer-year">2026</span>
+    </footer>
+</body>
+</html>
